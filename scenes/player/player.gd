@@ -10,7 +10,7 @@ extends CharacterBody3D
 ## Are we affected by gravity?
 @export var has_gravity : bool = true
 ## Can we press to jump?
-@export var can_jump : bool = true
+@export var can_jump : bool = false
 ## Can we hold to run?
 @export var can_sprint : bool = false
 ## Can we press to enter freefly mode (noclip)?

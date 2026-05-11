@@ -19,12 +19,13 @@ sky = SubResource("Sky_0wfyh")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
+albedo_texture = ExtResource("3_sugp2")
+uv1_triplanar = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
 albedo_texture = ExtResource("2_0wfyh")
 uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
-albedo_texture = ExtResource("3_sugp2")
 
 [node name="Main" type="Node"]
 
@@ -42,16 +43,6 @@ input_right = "right"
 input_forward = "forward"
 input_back = "back"
 input_jump = "jump"
-
-[node name="Ground" type="CSGBox3D" parent="."]
-material_override = SubResource("StandardMaterial3D_sugp2")
-use_collision = true
-size = Vector3(100, 1, 100)
-
-[node name="ReferenceCube" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.93489, 1.39008, -1.41504)
-material_override = SubResource("StandardMaterial3D_jyhfs")
-size = Vector3(1, 1.76477, 3.83008)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -77,3 +68,42 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_tbgi4")
+
+[node name="Room" type="Node3D" parent="."]
+
+[node name="Walls" type="Node" parent="Room"]
+
+[node name="Wall" type="CSGBox3D" parent="Room/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.93489, 4.0076947, 0.16991997)
+material_override = SubResource("StandardMaterial3D_jyhfs")
+use_collision = true
+size = Vector3(1, 7, 19)
+
+[node name="Wall2" type="CSGBox3D" parent="Room/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.06511, 4.0076947, 0.16991997)
+material_override = SubResource("StandardMaterial3D_jyhfs")
+use_collision = true
+size = Vector3(1, 7, 19)
+
+[node name="Wall3" type="CSGBox3D" parent="Room/Walls"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.06511021, 3.0076947, -9.83008)
+material_override = SubResource("StandardMaterial3D_jyhfs")
+use_collision = true
+size = Vector3(1, 5, 19)
+
+[node name="Wall4" type="CSGBox3D" parent="Room/Walls"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.06511021, 3.0076947, 9.16992)
+material_override = SubResource("StandardMaterial3D_jyhfs")
+use_collision = true
+size = Vector3(1, 5, 19)
+
+[node name="Roof" type="CSGBox3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+material_override = SubResource("StandardMaterial3D_sugp2")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="Ground" type="CSGBox3D" parent="Room"]
+material_override = SubResource("StandardMaterial3D_sugp2")
+use_collision = true
+size = Vector3(20, 1, 20)
