@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkg4id0qo2aw8"]
+[gd_scene load_steps=6 format=3 uid="uid://bkg4id0qo2aw8"]
 
 [ext_resource type="Texture2D" uid="uid://rxytob8gkqy1" path="res://assets/art/enemies/enemy.png" id="1_6xk8f"]
+[ext_resource type="Script" uid="uid://d28htjk1ua8k0" path="res://scripts/components/health_component.gd" id="2_8e3ao"]
+[ext_resource type="Script" uid="uid://cgaixc3tm5slg" path="res://scripts/components/health_hitbox_component.gd" id="3_38ino"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xk8f"]
 size = Vector3(9.34766, 10.1865, 1.46765)
 
-[node name="Enemy" type="CharacterBody3D" groups=["dash_target"]]
+[sub_resource type="SphereShape3D" id="SphereShape3D_fcftc"]
+radius = 5.365189
+
+[node name="Enemy" type="CharacterBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0878906, 0.14296, 0.233826)
@@ -18,3 +23,16 @@ billboard = 2
 double_sided = false
 texture_filter = 0
 texture = ExtResource("1_6xk8f")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_8e3ao")
+metadata/_custom_type_script = "uid://d28htjk1ua8k0"
+
+[node name="HealthHitboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_38ino")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cgaixc3tm5slg"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthHitboxComponent"]
+shape = SubResource("SphereShape3D_fcftc")
+debug_color = Color(1, 1, 1, 1)
