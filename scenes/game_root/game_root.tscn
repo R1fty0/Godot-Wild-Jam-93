@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bpyfw1apwq7sy"]
+[gd_scene load_steps=20 format=3 uid="uid://bpyfw1apwq7sy"]
 
 [ext_resource type="Script" uid="uid://l2f44mkqa3v" path="res://scripts/roots/game_root.gd" id="1_uw77h"]
 [ext_resource type="PackedScene" uid="uid://bd7f6j015x467" path="res://scenes/player/player.tscn" id="2_48ab3"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://chhl24ndt3f5w" path="res://addons/godot-prototype-texture/PNG/grid_512x512/grid_orange_512x512.png" id="5_frs1n"]
 [ext_resource type="Texture2D" uid="uid://d3kltewk3l2hf" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_blue_512x512.png" id="6_cgoyr"]
 [ext_resource type="Script" uid="uid://bc8ta4auvypp4" path="res://scripts/ui/health_bar_label.gd" id="6_o7mkc"]
+[ext_resource type="Texture2D" uid="uid://bhce1wmohotor" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_lime_512x512.png" id="7_frs1n"]
+[ext_resource type="Texture2D" uid="uid://cvi5533w04lj7" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="8_rkhm5"]
+[ext_resource type="Script" uid="uid://dcwa2bqbn37v" path="res://scripts/rooms/room_trigger.gd" id="11_cgoyr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -22,13 +25,24 @@ sky = SubResource("Sky_0wfyh")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
+albedo_texture = ExtResource("7_frs1n")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frs1n"]
+albedo_texture = ExtResource("8_rkhm5")
+uv1_triplanar = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
 albedo_texture = ExtResource("5_frs1n")
 uv1_triplanar = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cgoyr"]
 albedo_texture = ExtResource("6_cgoyr")
 uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_frs1n"]
+size = Vector3(1, 2.5144043, 3.4586182)
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_uw77h")
@@ -49,7 +63,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44262, 0)
 transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, -7.16673, 1.9537, 2.51874)
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("3_o7mkc")]
-transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, 1.83327, 1.9537, -10.4813)
+transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, 1.83327, 1.9537, -3.7502985)
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 script = ExtResource("4_48ab3")
@@ -79,9 +93,16 @@ layout_mode = 2
 text = "Health: 100"
 script = ExtResource("6_o7mkc")
 
+[node name="WalkUp" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.564825, 0, 0)
+material_override = SubResource("StandardMaterial3D_sugp2")
+use_collision = true
+size = Vector3(19.146973, 1, 6)
+
 [node name="Room" type="Node3D" parent="."]
 
-[node name="Walls" type="Node" parent="Room"]
+[node name="Walls" type="CSGCombiner3D" parent="Room"]
+material_override = SubResource("StandardMaterial3D_frs1n")
 
 [node name="Wall" type="CSGBox3D" parent="Room/Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.93489, 4.0076947, 0.16991997)
@@ -107,6 +128,11 @@ material_override = SubResource("StandardMaterial3D_jyhfs")
 use_collision = true
 size = Vector3(1, 5, 19)
 
+[node name="DoorCutout" type="CSGBox3D" parent="Room/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.102443, 1.7505544, -0.018676758)
+operation = 2
+size = Vector3(1.4819336, 2.5059814, 3.4362793)
+
 [node name="Roof" type="CSGBox3D" parent="Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 material_override = SubResource("StandardMaterial3D_sugp2")
@@ -114,6 +140,15 @@ use_collision = true
 size = Vector3(20, 1, 20)
 
 [node name="Ground" type="CSGBox3D" parent="Room"]
-material_override = SubResource("StandardMaterial3D_sugp2")
+material_override = SubResource("StandardMaterial3D_cgoyr")
 use_collision = true
 size = Vector3(20, 1, 20)
+
+[node name="RoomTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, 0)
+script = ExtResource("11_cgoyr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0801649, 0.75720215, -0.022155762)
+shape = SubResource("BoxShape3D_frs1n")
+debug_color = Color(0.8901961, 0.18039216, 0.6745098, 0.9607843)
