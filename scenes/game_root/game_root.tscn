@@ -42,11 +42,6 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_48ab3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44262, 0)
-input_left = "left"
-input_right = "right"
-input_forward = "forward"
-input_back = "back"
-input_jump = "jump"
 
 [node name="Enemies" type="Node" parent="."]
 

@@ -5,6 +5,12 @@
 extends CharacterBody3D
 class_name Player
 
+
+@export_category("References")
+@export var health_component: HealthComponent
+
+
+@export_category("Stats")
 ## Can we move around?
 @export var can_move : bool = true
 ## Are we affected by gravity?

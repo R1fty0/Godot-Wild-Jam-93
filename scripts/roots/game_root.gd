@@ -7,5 +7,6 @@ class_name GameRoot
 @onready var ui_root: UIRoot = $UIRoot
 
 func _ready() -> void:
+	# Pass player reference to UI root for UI initialization. 
 	ui_root.initialize_ui(player)
 	
