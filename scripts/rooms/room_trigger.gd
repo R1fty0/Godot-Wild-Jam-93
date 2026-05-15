@@ -8,5 +8,5 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player:
-		print("Player entered/exited the room")
+		print("1")
 		triggered.emit()

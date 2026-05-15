@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkg4id0qo2aw8"]
+[gd_scene load_steps=12 format=3 uid="uid://bkg4id0qo2aw8"]
 
 [ext_resource type="Texture2D" uid="uid://rxytob8gkqy1" path="res://assets/art/enemies/enemy.png" id="1_6xk8f"]
+[ext_resource type="Script" uid="uid://bmani5b5gxiqf" path="res://scripts/enemies/enemy.gd" id="1_lu5c6"]
 [ext_resource type="Script" uid="uid://d28htjk1ua8k0" path="res://scripts/components/health_component.gd" id="2_8e3ao"]
 [ext_resource type="Script" uid="uid://cgaixc3tm5slg" path="res://scripts/components/health_hitbox_component.gd" id="3_38ino"]
+[ext_resource type="Script" uid="uid://pihwd0eadi4f" path="res://scripts/state_machine/state_machine.gd" id="4_fcftc"]
+[ext_resource type="Script" uid="uid://nojyaykwkmru" path="res://scripts/enemies/enemy_states/grunt/grunt_idle.gd" id="6_qch6t"]
+[ext_resource type="Script" uid="uid://dbri2uqnr1t00" path="res://scripts/enemies/enemy_states/grunt/grunt_chase.gd" id="7_y5th1"]
+[ext_resource type="Script" uid="uid://comie3lg5r46m" path="res://scripts/enemies/enemy_states/grunt/grunt_attack.gd" id="8_tihwb"]
+[ext_resource type="Script" uid="uid://javqq2rgw1nd" path="res://scripts/enemies/enemy_states/grunt/grunt_die.gd" id="9_p7w77"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xk8f"]
 size = Vector3(9.34766, 10.1865, 1.46765)
@@ -11,6 +17,7 @@ size = Vector3(9.34766, 10.1865, 1.46765)
 radius = 5.365189
 
 [node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_lu5c6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0878906, 0.14296, 0.233826)
@@ -36,3 +43,30 @@ metadata/_custom_type_script = "uid://cgaixc3tm5slg"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthHitboxComponent"]
 shape = SubResource("SphereShape3D_fcftc")
 debug_color = Color(1, 1, 1, 1)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_fcftc")
+initial_state = NodePath("GruntIdle")
+metadata/_custom_type_script = "uid://pihwd0eadi4f"
+
+[node name="GruntIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy_root")]
+script = ExtResource("6_qch6t")
+enemy_root = NodePath("../..")
+metadata/_custom_type_script = "uid://nojyaykwkmru"
+
+[node name="GruntIdle2" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy_root")]
+script = ExtResource("6_qch6t")
+enemy_root = NodePath("../..")
+metadata/_custom_type_script = "uid://nojyaykwkmru"
+
+[node name="GruntChase" type="Node" parent="StateMachine"]
+script = ExtResource("7_y5th1")
+metadata/_custom_type_script = "uid://dbri2uqnr1t00"
+
+[node name="GruntAttack" type="Node" parent="StateMachine"]
+script = ExtResource("8_tihwb")
+metadata/_custom_type_script = "uid://comie3lg5r46m"
+
+[node name="GruntDie" type="Node" parent="StateMachine"]
+script = ExtResource("9_p7w77")
+metadata/_custom_type_script = "uid://javqq2rgw1nd"

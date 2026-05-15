@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bpyfw1apwq7sy"]
+[gd_scene load_steps=21 format=3 uid="uid://bpyfw1apwq7sy"]
 
 [ext_resource type="Script" uid="uid://l2f44mkqa3v" path="res://scripts/roots/game_root.gd" id="1_uw77h"]
 [ext_resource type="PackedScene" uid="uid://bd7f6j015x467" path="res://scenes/player/player.tscn" id="2_48ab3"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d3kltewk3l2hf" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_blue_512x512.png" id="6_cgoyr"]
 [ext_resource type="Script" uid="uid://bc8ta4auvypp4" path="res://scripts/ui/health_bar_label.gd" id="6_o7mkc"]
 [ext_resource type="Texture2D" uid="uid://bhce1wmohotor" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_lime_512x512.png" id="7_frs1n"]
+[ext_resource type="Script" uid="uid://ck5ayr232mkjr" path="res://scripts/rooms/room.gd" id="8_k4jbc"]
 [ext_resource type="Texture2D" uid="uid://cvi5533w04lj7" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="8_rkhm5"]
 [ext_resource type="Script" uid="uid://dcwa2bqbn37v" path="res://scripts/rooms/room_trigger.gd" id="11_cgoyr"]
 
@@ -55,7 +56,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_48ab3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44262, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0.44262, 0)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -99,7 +100,10 @@ material_override = SubResource("StandardMaterial3D_sugp2")
 use_collision = true
 size = Vector3(19.146973, 1, 6)
 
-[node name="Room" type="Node3D" parent="."]
+[node name="Room" type="Node3D" parent="." node_paths=PackedStringArray("enemies", "room_trigger")]
+script = ExtResource("8_k4jbc")
+enemies = [NodePath("../Enemies/Enemy"), NodePath("../Enemies/Enemy2")]
+room_trigger = NodePath("../RoomTrigger")
 
 [node name="Walls" type="CSGCombiner3D" parent="Room"]
 material_override = SubResource("StandardMaterial3D_frs1n")
