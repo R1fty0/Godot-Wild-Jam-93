@@ -2,7 +2,7 @@ extends Node
 class_name HealthComponent
 
 signal death
-signal hit
+signal hit(remaining_health)
 
 @export var starting_health: float = 100
 var current_health: float = 100
@@ -16,4 +16,4 @@ func take_damage(damage: float):
 		death.emit()
 	else:
 		current_health -= damage
-		hit.emit()
+		hit.emit(current_health)

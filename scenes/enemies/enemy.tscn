@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bkg4id0qo2aw8"]
+[gd_scene load_steps=13 format=3 uid="uid://bkg4id0qo2aw8"]
 
 [ext_resource type="Texture2D" uid="uid://rxytob8gkqy1" path="res://assets/art/enemies/enemy.png" id="1_6xk8f"]
 [ext_resource type="Script" uid="uid://bmani5b5gxiqf" path="res://scripts/enemies/enemy.gd" id="1_lu5c6"]
@@ -9,9 +9,10 @@
 [ext_resource type="Script" uid="uid://dbri2uqnr1t00" path="res://scripts/enemies/enemy_states/grunt/grunt_chase.gd" id="7_y5th1"]
 [ext_resource type="Script" uid="uid://comie3lg5r46m" path="res://scripts/enemies/enemy_states/grunt/grunt_attack.gd" id="8_tihwb"]
 [ext_resource type="Script" uid="uid://javqq2rgw1nd" path="res://scripts/enemies/enemy_states/grunt/grunt_die.gd" id="9_p7w77"]
+[ext_resource type="Script" uid="uid://yy7rknbm62t" path="res://scripts/enemies/attack_raycast.gd" id="10_y5th1"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6xk8f"]
-size = Vector3(9.34766, 10.1865, 1.46765)
+[sub_resource type="SphereShape3D" id="SphereShape3D_qch6t"]
+radius = 5.378
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fcftc"]
 radius = 5.365189
@@ -19,9 +20,9 @@ radius = 5.365189
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_lu5c6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="MovementCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0878906, 0.14296, 0.233826)
-shape = SubResource("BoxShape3D_6xk8f")
+shape = SubResource("SphereShape3D_qch6t")
 debug_color = Color(0.925181, 4.17775e-05, 0.677212, 0.42)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
@@ -36,6 +37,8 @@ script = ExtResource("2_8e3ao")
 metadata/_custom_type_script = "uid://d28htjk1ua8k0"
 
 [node name="HealthHitboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("3_38ino")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cgaixc3tm5slg"
@@ -54,19 +57,27 @@ script = ExtResource("6_qch6t")
 enemy_root = NodePath("../..")
 metadata/_custom_type_script = "uid://nojyaykwkmru"
 
-[node name="GruntIdle2" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy_root")]
-script = ExtResource("6_qch6t")
-enemy_root = NodePath("../..")
-metadata/_custom_type_script = "uid://nojyaykwkmru"
-
-[node name="GruntChase" type="Node" parent="StateMachine"]
+[node name="GruntChase" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body", "attack_raycast")]
 script = ExtResource("7_y5th1")
+character_body = NodePath("../..")
+attack_raycast = NodePath("../../AttackRaycast")
 metadata/_custom_type_script = "uid://dbri2uqnr1t00"
 
-[node name="GruntAttack" type="Node" parent="StateMachine"]
+[node name="GruntAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy_root", "explosion_timer")]
 script = ExtResource("8_tihwb")
+enemy_root = NodePath("../..")
+explosion_timer = NodePath("../../DeathExplosionDurationTimer")
 metadata/_custom_type_script = "uid://comie3lg5r46m"
 
-[node name="GruntDie" type="Node" parent="StateMachine"]
+[node name="GruntDie" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy_root")]
 script = ExtResource("9_p7w77")
+enemy_root = NodePath("../..")
 metadata/_custom_type_script = "uid://javqq2rgw1nd"
+
+[node name="AttackRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)
+debug_shape_custom_color = Color(0.74509805, 0, 0.92156863, 1)
+debug_shape_thickness = 5
+script = ExtResource("10_y5th1")
+
+[node name="DeathExplosionDurationTimer" type="Timer" parent="."]

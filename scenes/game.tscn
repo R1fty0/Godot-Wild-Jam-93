@@ -1,17 +1,17 @@
 [gd_scene load_steps=21 format=3 uid="uid://bpyfw1apwq7sy"]
 
-[ext_resource type="Script" uid="uid://l2f44mkqa3v" path="res://scripts/roots/game_root.gd" id="1_uw77h"]
-[ext_resource type="PackedScene" uid="uid://bd7f6j015x467" path="res://scenes/player/player.tscn" id="2_48ab3"]
-[ext_resource type="PackedScene" uid="uid://bkg4id0qo2aw8" path="res://scenes/enemies/enemy.tscn" id="3_o7mkc"]
-[ext_resource type="Script" uid="uid://hkxtwnmgrl3f" path="res://scripts/roots/ui_root.gd" id="4_48ab3"]
-[ext_resource type="Texture2D" uid="uid://bv0ky2d4knk2w" path="res://assets/art/ui/crosshair.png" id="4_rkhm5"]
-[ext_resource type="Texture2D" uid="uid://chhl24ndt3f5w" path="res://addons/godot-prototype-texture/PNG/grid_512x512/grid_orange_512x512.png" id="5_frs1n"]
-[ext_resource type="Texture2D" uid="uid://d3kltewk3l2hf" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_blue_512x512.png" id="6_cgoyr"]
-[ext_resource type="Script" uid="uid://bc8ta4auvypp4" path="res://scripts/ui/health_bar_label.gd" id="6_o7mkc"]
-[ext_resource type="Texture2D" uid="uid://bhce1wmohotor" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_lime_512x512.png" id="7_frs1n"]
-[ext_resource type="Script" uid="uid://ck5ayr232mkjr" path="res://scripts/rooms/room.gd" id="8_k4jbc"]
-[ext_resource type="Texture2D" uid="uid://cvi5533w04lj7" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="8_rkhm5"]
-[ext_resource type="Script" uid="uid://dcwa2bqbn37v" path="res://scripts/rooms/room_trigger.gd" id="11_cgoyr"]
+[ext_resource type="PackedScene" uid="uid://bd7f6j015x467" path="res://scenes/player/player.tscn" id="1_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://bkg4id0qo2aw8" path="res://scenes/enemies/enemy.tscn" id="2_dinhu"]
+[ext_resource type="Script" uid="uid://hkxtwnmgrl3f" path="res://scripts/managers/ui_manager.gd" id="3_kvuet"]
+[ext_resource type="Texture2D" uid="uid://bv0ky2d4knk2w" path="res://assets/art/ui/crosshair.png" id="4_trtic"]
+[ext_resource type="Script" uid="uid://bc8ta4auvypp4" path="res://scripts/ui/health_bar_label.gd" id="5_ir15t"]
+[ext_resource type="Texture2D" uid="uid://bhce1wmohotor" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_lime_512x512.png" id="6_ca42v"]
+[ext_resource type="Script" uid="uid://ck5ayr232mkjr" path="res://scripts/rooms/room.gd" id="7_rysoc"]
+[ext_resource type="Texture2D" uid="uid://cvi5533w04lj7" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_orange_512x512.png" id="8_ssvqc"]
+[ext_resource type="Texture2D" uid="uid://chhl24ndt3f5w" path="res://addons/godot-prototype-texture/PNG/grid_512x512/grid_orange_512x512.png" id="9_264po"]
+[ext_resource type="Texture2D" uid="uid://d3kltewk3l2hf" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_blue_512x512.png" id="10_1kice"]
+[ext_resource type="Script" uid="uid://dcwa2bqbn37v" path="res://scripts/rooms/room_trigger.gd" id="11_5newe"]
+[ext_resource type="PackedScene" uid="uid://uis2tsqd0pe3" path="res://scenes/combat_star/combat_star.tscn" id="12_dinhu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -27,26 +27,25 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
-albedo_texture = ExtResource("7_frs1n")
+albedo_texture = ExtResource("6_ca42v")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frs1n"]
-albedo_texture = ExtResource("8_rkhm5")
+albedo_texture = ExtResource("8_ssvqc")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
-albedo_texture = ExtResource("5_frs1n")
+albedo_texture = ExtResource("9_264po")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cgoyr"]
-albedo_texture = ExtResource("6_cgoyr")
+albedo_texture = ExtResource("10_1kice")
 uv1_triplanar = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_frs1n"]
 size = Vector3(1, 2.5144043, 3.4586182)
 
-[node name="GameRoot" type="Node"]
-script = ExtResource("1_uw77h")
+[node name="Game" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sugp2")
@@ -55,21 +54,13 @@ environment = SubResource("Environment_sugp2")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("2_48ab3")]
+[node name="Player" parent="." instance=ExtResource("1_kvpfn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0.44262, 0)
 
-[node name="Enemies" type="Node" parent="."]
+[node name="UIManager" type="CanvasLayer" parent="."]
+script = ExtResource("3_kvuet")
 
-[node name="Enemy" parent="Enemies" instance=ExtResource("3_o7mkc")]
-transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, -7.16673, 1.9537, 2.51874)
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("3_o7mkc")]
-transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, 1.83327, 1.9537, -3.7502985)
-
-[node name="UIRoot" type="CanvasLayer" parent="."]
-script = ExtResource("4_48ab3")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -82,17 +73,17 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Crosshair" type="TextureRect" parent="UIRoot/VBoxContainer"]
+[node name="Crosshair" type="TextureRect" parent="UIManager/VBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("4_rkhm5")
+texture = ExtResource("4_trtic")
 stretch_mode = 5
 
-[node name="HealthBarLabel" type="Label" parent="UIRoot/VBoxContainer"]
+[node name="HealthBarLabel" type="Label" parent="UIManager/VBoxContainer"]
 layout_mode = 2
 text = "Health: 100"
-script = ExtResource("6_o7mkc")
+script = ExtResource("5_ir15t")
 
 [node name="WalkUp" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.564825, 0, 0)
@@ -101,9 +92,9 @@ use_collision = true
 size = Vector3(19.146973, 1, 6)
 
 [node name="Room" type="Node3D" parent="." node_paths=PackedStringArray("enemies", "room_trigger")]
-script = ExtResource("8_k4jbc")
-enemies = [NodePath("../Enemies/Enemy"), NodePath("../Enemies/Enemy2")]
-room_trigger = NodePath("../RoomTrigger")
+script = ExtResource("7_rysoc")
+enemies = [NodePath("Enemies/Enemy"), NodePath("Enemies/Enemy2")]
+room_trigger = NodePath("RoomTrigger")
 
 [node name="Walls" type="CSGCombiner3D" parent="Room"]
 material_override = SubResource("StandardMaterial3D_frs1n")
@@ -148,11 +139,22 @@ material_override = SubResource("StandardMaterial3D_cgoyr")
 use_collision = true
 size = Vector3(20, 1, 20)
 
-[node name="RoomTrigger" type="Area3D" parent="."]
+[node name="RoomTrigger" type="Area3D" parent="Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, 0)
-script = ExtResource("11_cgoyr")
+script = ExtResource("11_5newe")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomTrigger"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/RoomTrigger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0801649, 0.75720215, -0.022155762)
 shape = SubResource("BoxShape3D_frs1n")
 debug_color = Color(0.8901961, 0.18039216, 0.6745098, 0.9607843)
+
+[node name="Enemies" type="Node" parent="Room"]
+
+[node name="Enemy" parent="Room/Enemies" instance=ExtResource("2_dinhu")]
+transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, -7.16673, 1.9537, 2.51874)
+
+[node name="Enemy2" parent="Room/Enemies" instance=ExtResource("2_dinhu")]
+transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, 1.83327, 1.9537, -3.7502985)
+
+[node name="CombatStar" parent="." instance=ExtResource("12_dinhu")]
+transform = Transform3D(1, 0, 0, 0, -0.21001107, -0.977699, 0, 0.977699, -0.21001107, 8.496064, 1.2670625, 0)

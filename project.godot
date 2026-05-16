@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot Wild Jam 93"
-run/main_scene="res://scenes/game_root/game_root.tscn"
+run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.5")
 
 [editor_plugins]
@@ -28,6 +28,10 @@ folder_colors={
 "res://scenes/": "green",
 "res://scripts/": "blue"
 }
+
+[global_group]
+
+player=""
 
 [input]
 
@@ -51,6 +55,12 @@ right={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="physical_colliders"
+3d_physics/layer_2="hitboxes"
+3d_physics/layer_3="attacks"
 
 [rendering]
 

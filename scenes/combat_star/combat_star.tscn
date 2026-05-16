@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://uis2tsqd0pe3"]
+
+[ext_resource type="Script" uid="uid://dc2bcnov1ythr" path="res://scripts/components/attack_component.gd" id="1_23jti"]
+[ext_resource type="Texture2D" uid="uid://cn1qg50b5mbpl" path="res://assets/art/stars/combat_stars.png" id="2_fb66q"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m2n1f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_23jti"]
+albedo_texture = ExtResource("2_fb66q")
+
+[sub_resource type="QuadMesh" id="QuadMesh_fb66q"]
+material = SubResource("StandardMaterial3D_23jti")
+
+[node name="CombatStar" type="Area3D" node_paths=PackedStringArray("collision_shape")]
+transform = Transform3D(1, 0, 0, 0, -0.21001107, -0.977699, 0, 0.977699, -0.21001107, 0, 0, 0)
+script = ExtResource("1_23jti")
+collision_shape = NodePath("CollisionShape3D")
+metadata/_custom_type_script = "uid://dc2bcnov1ythr"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_m2n1f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_fb66q")
